@@ -77,28 +77,31 @@ class LikeAPIView(ListAPIView):
 
 
 
-def collect_user_interest_words(post_id,user):
+def collect_user_interest_words(post_id,user,like):
     print("collect_user_interest_words called")
     post_obj = Posts.objects.filter(id=post_id)
     post_obj=post_obj.first()
     words_list = post_obj.title.split()
     interest_obj = UserIntests.objects.filter(user__id = user.id)
     keywords = ""
-    print("data collected")
+    # print("data collected")
     if interest_obj.count()>0:
-        print("interest_obj found")
+        # print("interest_obj found")
         u_obj = interest_obj.first()
         keywords = u_obj.keyword
     else:
 
         u_obj = UserIntests()
-        print("interest_obj Created")
-    print("looping words_list")
+        # print("interest_obj Created")
+    # print("looping words_list")
     for word in words_list:
         if len(word)>= 3 :
             # and word not in keywords
-            keywords = keywords+","+word
-    print("keywords : ",keywords)
+            if like==1:
+                keywords = keywords+","+word
+            if like == -1:
+                keywords = keywords.replace(word,"")
+    # print("keywords : ",keywords)
     u_obj.keyword = keywords
     u_obj.user = user
     u_obj.save()
