@@ -38,10 +38,17 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
 
-    "rest_framework",
+    'rest_framework',
+    'rest_framework.authtoken',
 
+    "like_and_comments",
+    "user_interests",
     "users_profile",
     "notes",
+    "posts",
+    "medias",
+
+
     'corsheaders',
 ]
 
@@ -129,9 +136,11 @@ USE_TZ = True
 # https://docs.djangoproject.com/en/3.0/howto/static-files/
 
 STATIC_URL = '/static/'
+MEDIA_ROOT = os.path.join(BASE_DIR,'media')
+MEDIA_URL = '/media/'
+
 
 from datetime import timedelta
-
 SIMPLE_JWT = {
     'ACCESS_TOKEN_LIFETIME': timedelta(days=1),
     'REFRESH_TOKEN_LIFETIME': timedelta(days=1),
@@ -166,6 +175,8 @@ REST_FRAMEWORK = {
      #     'rest_framework.permissions.IsAuthenticated',
      #     'rest_framework.permissions.IsAdminUser',
      #     ],
+    'DEFAULT_PAGINATION_CLASS': 'rest_framework.pagination.LimitOffsetPagination',
+    'PAGE_SIZE': 12,
     'DEFAULT_AUTHENTICATION_CLASSES': (
      'rest_framework_simplejwt.authentication.JWTAuthentication',
      # 'rest_framework_jwt.authentication.JSONWebTokenAuthentication',
