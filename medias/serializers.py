@@ -4,7 +4,7 @@ from rest_framework import serializers
 from .models import *
 
 
-class PostsSerializers(serializers.ModelSerializer):
+class MediaSerializers(serializers.ModelSerializer):
 
     class Meta:
         model = Medias

@@ -49,7 +49,7 @@ def get_my_key(obj):
 class PostLikeAPIView(ListAPIView):
 
     def get(self,request):
-        data = Likes.objects.filter(posts__id=self.request.data['post_id']).values('user__username','user__id')
+        data = Likes.objects.filter(posts__id=self.request.GET.get('post_id')).values('user__username','user__id')
         return ResponseFunction(1,data)
 
 
