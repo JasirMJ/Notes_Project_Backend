@@ -133,21 +133,6 @@ class PostsAPIView(ListAPIView):
 
             return ResponseFunction(0,f"Excepction occured {str(e)}")
 
-    def put(self, request):
-
-        ResponseFunction(0,"Not enabled")
-
-        id = self.request.POST.get("id")
-        if not id or id == "":
-            return Response({
-                STATUS: False,
-                MESSAGE: "Required object id as id"
-            })
-        serializer = PostsSerializers(Posts.objects.filter(id=id).first(), data=request.data, partial=True)
-        serializer.is_valid(raise_exception=True)
-        serializer.save()
-        return ResponseFunction(1, "Data updated")
-
 
     def delete(self, request):
         try:

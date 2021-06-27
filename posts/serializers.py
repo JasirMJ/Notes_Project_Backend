@@ -11,7 +11,7 @@ class PostsSerializers(serializers.ModelSerializer):
 
     class Meta:
         model = Posts
-        fields = ["title","files","desc","posted","weight","like","dislike"]
+        fields = ["id","title","files","desc","posted","weight","like","dislike"]
 
     def get_like(self,obj):
         # self.context

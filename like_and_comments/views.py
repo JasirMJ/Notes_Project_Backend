@@ -63,8 +63,8 @@ class LikeAPIView(ListAPIView):
                 msg = "Data saved "
 
 
-            if self.request.data['like']==1:
-                collect_user_interest_words(post_id,user)
+
+            collect_user_interest_words(post_id,user,self.request.data['like'])
 
             return ResponseFunction(1,msg)
         except Exception as e:
@@ -78,7 +78,7 @@ class LikeAPIView(ListAPIView):
 
 
 def collect_user_interest_words(post_id,user,like):
-    print("collect_user_interest_words called")
+    # print("collect_user_interest_words called")
     post_obj = Posts.objects.filter(id=post_id)
     post_obj=post_obj.first()
     words_list = post_obj.title.split()
@@ -97,10 +97,12 @@ def collect_user_interest_words(post_id,user,like):
     for word in words_list:
         if len(word)>= 3 :
             # and word not in keywords
-            if like==1:
+            if like=="1":
+                print("added")
                 keywords = keywords+","+word
-            if like == -1:
-                keywords = keywords.replace(word,"")
+            if like == "-1":
+                print("removed")
+                keywords = keywords.replace(word+",","")
     # print("keywords : ",keywords)
     u_obj.keyword = keywords
     u_obj.user = user
